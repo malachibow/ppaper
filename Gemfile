@@ -38,17 +38,6 @@ gem "administrate"
 #pagy
 gem 'pagy', '~> 3.5'
 
-######payments#########
-gem 'pay', '~> 2.0'
-
-# To use Stripe, also include:
-gem 'stripe', '< 6.0', '>= 2.8'
-gem 'stripe_event', '~> 2.3'
-
-# To use Receipts
-gem 'receipts', '~> 1.0.0'
-#######################
-
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
