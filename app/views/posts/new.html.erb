@@ -1,0 +1,17 @@
+<div class="section">
+<div class="columns">
+    <div class="column is-3 p-0"></div>
+        <div class="column is-6">
+        <h1 class="title f-30 th-700 m-t-20">New Post</h1> <hr>
+            <div class="card">
+                <div class="card-content">
+
+                    <%= render 'form', post: @post %>
+
+                    <%= link_to 'Back', posts_path %>
+                </div>
+            </div>
+        </div>
+</div>
+</div>
+<%= image_tag 'wave1.png' %>

@@ -1,0 +1,51 @@
+<div class="section hero is-fullheight is-hidden-touch">
+<div class="container m-t-90">
+<div class="columns">
+    <div class="column is-6">
+     <h1 class="title f-60 th-700"><%= company_name %> brings people together no matter what they believe in</h1>
+    <h2 class="subtitle is-3 th-400">So we can grow together rather than being stuck in the same place.</h2>
+ <!---buttons--->
+   <div class="buttons">
+    <% if !user_signed_in? %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'button is-large is-primary th-700'  %>
+    <% end %>
+    <button class="button is-large is-light th-500">How it works</button>
+   </div>
+    </div>
+    <div class="column">
+    <center>
+      <%= image_tag 'home_image.png' %>
+    </center>
+    </div>
+</div>
+</div>
+
+
+</div>
+</div>
+
+<div class="section hero is-fullheight is-hidden-desktop">
+<div class="container">
+<div class="columns">
+    <div class="column">
+    <center>
+      <%= image_tag 'home_image.png' %>
+    </center>
+    </div>
+    <div class="column is-6">
+     <h1 class="title f-30 th-700"><%= company_name %> brings people together no matter what they believe in</h1>
+    <h2 class="subtitle is-4 th-400">So we can grow together rather than being stuck in the same place.</h2>
+ <!---buttons--->
+   <div class="buttons">
+   <% if !user_signed_in? %>
+    <button class="button is-primary th-700">Sign up</button>
+   <% end %>
+    <button class="button is-light th-500">How it works</button>
+   </div>
+    </div>
+</div>
+</div>
+
+
+</div>
+</div>

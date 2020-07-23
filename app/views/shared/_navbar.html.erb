@@ -1,0 +1,51 @@
+
+<nav class="navbar is-fixed-top has-shadow is-spaced is-hidden-touch" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a href="/" class="navbar-item">
+      <h1 class="title th-700 f-20 has-text-primary">pp</h1>
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+    <a href="/posts/new" class="navbar-item">new post</a>
+    </div>
+
+    <div class="navbar-end">
+    <% if user_signed_in? %>
+    <a class="navbar-item" href="/pages/notifications">
+      <i class="material-icons has-text-primary">notifications</i>
+      <i class="material-icons has-text-danger f-15">fiber_manual_record</i>
+    </a>
+    <% end %>
+      <div class="navbar-item">
+<% if user_signed_in? %>
+<div class="navbar-item has-dropdown is-hoverable is-left">
+    <a class="navbar-link is-rounded">
+        <strong>Profile</strong>
+    </a>
+    <div class="navbar-dropdown is-right">
+  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %>
+  <%= link_to 'Admin dashboard', admin_root_path, :class => 'navbar-item' %>
+  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
+    </div>
+</div>
+<% else %>
+<div class="buttons">
+  <%= link_to "Sign up", new_user_registration_path, :class => 'button is-primary navbar-item th-700'  %>
+  <%= link_to "Login", new_user_session_path, :class => 'button is-light navbar-item'  %>
+</div>
+<% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<br class="is-hidden-touch">
+<br class="is-hidden-touch">

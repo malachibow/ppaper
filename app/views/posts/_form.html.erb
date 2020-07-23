@@ -1,0 +1,32 @@
+<%= form_with(model: post, local: true) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <label for="">Title for this post (10 words)</label>
+    <%= form.text_area :title, class: "textarea is-small is-light", rows: "2", id: "title", maxlength: 100, required: true %>
+  </div>
+
+  <div class="field">
+    <label for="">The content for your thought or belief (200 words)</label>
+    <%= form.text_area :body, class: "textarea is-small is-light", rows: "3", id: "content", maxlength: 1400, required: true %>
+  </div>
+
+  <div class="field">
+    <label for="">Tags to help people find this post (100 characters)</label>
+    <%= form.text_field :tags, class: "input is-small is-light", maxlength: 100, required: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "submit", class: "button is-primary" %>
+  </div>
+<% end %>

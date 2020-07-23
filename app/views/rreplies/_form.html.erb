@@ -1,0 +1,27 @@
+<%= form_with(model: rreply, local: true) do |form| %>
+  <% if rreply.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rreply.errors.count, "error") %> prohibited this rreply from being saved:</h2>
+
+      <ul>
+        <% rreply.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :reply_id %>
+    <%= form.text_field :reply_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
