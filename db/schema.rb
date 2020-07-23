@@ -54,35 +54,6 @@ ActiveRecord::Schema.define(version: 2020_07_22_183517) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
-  create_table "pay_charges", id: :serial, force: :cascade do |t|
-    t.string "owner_type"
-    t.integer "owner_id"
-    t.string "processor", null: false
-    t.string "processor_id", null: false
-    t.integer "amount", null: false
-    t.integer "amount_refunded"
-    t.string "card_type"
-    t.string "card_last4"
-    t.string "card_exp_month"
-    t.string "card_exp_year"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "pay_subscriptions", id: :serial, force: :cascade do |t|
-    t.integer "owner_id"
-    t.string "name", null: false
-    t.string "processor", null: false
-    t.string "processor_id", null: false
-    t.string "processor_plan", null: false
-    t.integer "quantity", default: 1, null: false
-    t.datetime "trial_ends_at"
-    t.datetime "ends_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string "status"
-  end
-
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.string "body"
