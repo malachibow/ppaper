@@ -19,9 +19,9 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     if params.has_key?(:search) && !params[:search].blank?
-      @pagy, @posts = pagy(Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%"))
+      @pagy, @posts = pagy(Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%"), items: 3)
     else
-      @pagy, @posts = pagy(Post.all)
+      @pagy, @posts = pagy(Post.all, items: 3)
     end
   end
 
