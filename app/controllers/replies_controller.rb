@@ -32,10 +32,15 @@ class RepliesController < ApplicationController
   # POST /replies
   # POST /replies.json
   def create
+    @post = Post.find_by(id: reply_params[:post_id])
     @reply = Reply.new(reply_params)
     @reply.user_id = current_user.id
 
       if @reply.save
+        #create notification
+        @notification = Notification.new(user_id: @post.user_id,
+                                          notification_type: '1')
+        @notification.save
         redirect_to request.referrer, notice: 'Reply was successfully created.'
       end
   end

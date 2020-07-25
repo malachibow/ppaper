@@ -19,35 +19,35 @@
       <div class="card-content">
         <h2 class="title th-700 f-20"><%= post.title %></h2>
         <p class="subtitle f-15"><%= post.body %></p>
-<!--level--->
-<nav class="level is-mobile m-b-0">
-  <!-- Right side -->
-  <div class="level-left">
-    <p class="level-item">
-        <% if user_signed_in? && !Favorite.exists?(post_id: post.id, user_id: current_user.id) %>
-          <%= link_to favorite_path(post), method: :post, remote: true do %>
-            <i class="material-icons">favorite_border</i>
-          <% end %>
-        <% else %>
-          <%= link_to favorite_path(post), method: :post, remote: true do %>
-            <i class="material-icons">favorite</i>
-          <% end %>
-        <% end %>
-    </p>
-    <p class="level-item">
-    <%= link_to post do %>
-    <i class="material-icons">reply_all</i>
-    <% end %>
-    </p>
-  </div>
-  <div class="level-right">
-    <p class="level-item"><a>Share</a></p>
-    <p class="level-item"><%= link_to 'Report', posts_report_path(post), method: :post %> </p>
-    <p class="level-item"><%= link_to 'Edit', edit_post_path(post) unless !user_signed_in? || !Post.exists?(user_id: current_user.id, id: post.id)%></p>
-    <p class="level-item"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } unless !user_signed_in? || !Post.exists?(user_id: current_user.id, id: post.id) %></p>
-  </div>
-</nav>
-<!----->
+        <!--level--->
+        <nav class="level is-mobile m-b-0">
+          <!-- Right side -->
+          <div class="level-left">
+            <p class="level-item">
+                <% if user_signed_in? && !Favorite.exists?(post_id: post.id, user_id: current_user.id) %>
+                  <%= link_to favorite_path(post), method: :post, remote: true do %>
+                    <i class="material-icons">favorite_border</i>
+                  <% end %>
+                <% else %>
+                  <%= link_to favorite_path(post), method: :post, remote: true do %>
+                    <i class="material-icons">favorite</i>
+                  <% end %>
+                <% end %>
+            </p>
+            <p class="level-item">
+            <%= link_to post do %>
+            <i class="material-icons">reply_all</i>
+            <% end %>
+            </p>
+          </div>
+          <div class="level-right">
+            <p class="level-item"><a>Share</a></p>
+            <p class="level-item"><%= link_to 'Report', posts_report_path(post), method: :post %> </p>
+            <p class="level-item"><%= link_to 'Edit', edit_post_path(post) unless !user_signed_in? || !Post.exists?(user_id: current_user.id, id: post.id)%></p>
+            <p class="level-item"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } unless !user_signed_in? || !Post.exists?(user_id: current_user.id, id: post.id) %></p>
+          </div>
+        </nav>
+        <!----->
       </div>
     </div>
     <br>

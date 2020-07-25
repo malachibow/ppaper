@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_183517) do
+ActiveRecord::Schema.define(version: 2020_07_25_174848) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,16 +41,20 @@ ActiveRecord::Schema.define(version: 2020_07_22_183517) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "content"
+    t.integer "type"
     t.index ["post_id"], name: "index_favorites_on_post_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.string "type"
+    t.integer "notification_type"
     t.string "content"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "post_id", null: false
+    t.index ["post_id"], name: "index_notifications_on_post_id"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
@@ -110,6 +114,7 @@ ActiveRecord::Schema.define(version: 2020_07_22_183517) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "favorites", "posts"
   add_foreign_key "favorites", "users"
+  add_foreign_key "notifications", "posts"
   add_foreign_key "notifications", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "replies", "posts"

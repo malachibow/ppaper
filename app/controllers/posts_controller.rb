@@ -6,6 +6,10 @@ class PostsController < ApplicationController
   def report 
     @post.report = true
     if @post.save
+        #create notification
+        @notification = Notification.new(user_id: @post.user_id,
+                                          notification_type: '2')
+        @notification.save
       redirect_to request.referrer, notice: "Reply was successfully reported."
     end
   end
@@ -19,9 +23,9 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     if params.has_key?(:search) && !params[:search].blank?
-      @pagy, @posts = pagy(Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%"), items: 3)
+      @pagy, @posts = pagy(Post.where(report: false).where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%"), items: 3)
     else
-      @pagy, @posts = pagy(Post.all, items: 3)
+      @pagy, @posts = pagy(Post.where(report: false), items: 3)
     end
   end
 
@@ -30,6 +34,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @favorite = Favorite.find_by(post_id: @post.id, user_id: current_user.id)
 
+    #create favorite
     if Favorite.exists?(post_id: @post.id, user_id: current_user.id)
       @favorite.destroy
       redirect_to request.referrer, notice: "Post unfavorited"
@@ -37,6 +42,10 @@ class PostsController < ApplicationController
       @favorite = Favorite.new(user_id: current_user.id,
                                 post_id: @post.id)
       if @favorite.save
+        #create notification
+        @notification = Notification.new(user_id: @post.user_id,
+                                          notification_type: '0')
+        @notification.save
         redirect_to request.referrer, notice: "Post favorited :)"
       else
         redirect_to request.referrer, alert: "Somthing went wrong"
@@ -64,6 +73,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
+    @post.report = "false"
 
     respond_to do |format|
       if @post.save

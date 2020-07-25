@@ -5,6 +5,8 @@
         <div class="column is-6">
 <h1 class="title f-30 th-700 m-t-20">Notifications</h1> 
 <hr>
+<% @notifications.each do |notification|%>
+<% if notification.notification_type == 0 %>
 <article class="media">
   <figure class="media-left">
     <i class="material-icons has-text-primary">favorite</i>
@@ -19,6 +21,8 @@
     </div>
   </div>
 </article>
+  
+<% elsif notification.notification_type == 1 %>
 <article class="media">
   <figure class="media-left">
     <i class="material-icons has-text-primary">comment</i>
@@ -37,6 +41,7 @@
   </div>
 
 </article>
+<% elsif notification.notification_type == 2 %>
 <article class="media">
   <figure class="media-left">
     <i class="material-icons has-text-danger">error</i>
@@ -52,12 +57,14 @@
         re-posted to the public feed and you will be able to continue to post and interact with others on our platform.
         <br> <br>
         If not, you will be given a warning and you can continue to post. If another incident comes up, we will then have to 
-        ban your account to ensure persuasive paper maintains a safe and friendly community. Thank you for your patience and happy papering!
+        ban your account to ensure persuasive paper maintains a safe and friendly community. Thank you for your patience and happy persuading!
       </p>
     </div>
   </div>
 
 </article>
+<% end %>
+<% end %>
 </div>
 </div>
 </div>
