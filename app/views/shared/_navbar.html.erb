@@ -21,7 +21,7 @@
     <% if user_signed_in? %>
       <%= link_to read_notification_path, method: :post, class: "navbar-item" do%>
         <i class="material-icons has-text-primary">notifications</i>
-          <% if !Notification.where(user_id: current_user.id).order(created_at: :DESC).nil? && current_user.read_notification < Notification.where(user_id: current_user.id).order(created_at: :DESC).first.created_at %>
+          <% if !Notification.where(user_id: current_user.id).blank? && current_user.read_notification < Notification.where(user_id: current_user.id).order(created_at: :DESC).first.created_at %>
             <i class="material-icons has-text-danger f-15">fiber_manual_record</i>
           <% end %>
       <% end %>
