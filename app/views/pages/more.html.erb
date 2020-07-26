@@ -13,14 +13,16 @@
 </tr>
 </table>
 <table class="table is-fullwidth">
+<% if current_user.admin? %>
 <tr>
-    <td>Admin Dashboard</td>
+    <td><%= link_to 'Admin dashboard', admin_root_path %></td>
+</tr>
+<% end %>
+<tr>
+    <td><%= link_to 'Edit profile', edit_user_registration_path %></td>
 </tr>
 <tr>
-    <td>Edit Profile</td>
-</tr>
-<tr>
-    <td>Logout</td>
+    <td><%= link_to "Logout", destroy_user_session_path, method: :delete %></td>
 </tr>
 </table>
 </div>
