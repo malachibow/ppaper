@@ -5,6 +5,6 @@ class PagesController < ApplicationController
   end
 
   def notifications
-    @notifications = Notification.where(user_id: current_user.id)
+    @notifications = Notification.where(user_id: current_user.id).order(created_at: :DESC)
   end
 end

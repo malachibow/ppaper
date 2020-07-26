@@ -8,6 +8,7 @@ class PostsController < ApplicationController
     if @post.save
         #create notification
         @notification = Notification.new(user_id: @post.user_id,
+                                          post_id: @post.id,
                                           notification_type: '2')
         @notification.save
       redirect_to request.referrer, notice: "Reply was successfully reported."
@@ -44,6 +45,7 @@ class PostsController < ApplicationController
       if @favorite.save
         #create notification
         @notification = Notification.new(user_id: @post.user_id,
+                                          post_id: @post.id,
                                           notification_type: '0')
         @notification.save
         redirect_to request.referrer, notice: "Post favorited :)"
@@ -83,30 +85,6 @@ class PostsController < ApplicationController
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
-  def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /posts/1
-  # DELETE /posts/1.json
-  def destroy
-    @post.destroy
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: 'Post was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

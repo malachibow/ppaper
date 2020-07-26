@@ -43,8 +43,6 @@
           <div class="level-right">
             <p class="level-item"><a>Share</a></p>
             <p class="level-item"><%= link_to 'Report', posts_report_path(post), method: :post %> </p>
-            <p class="level-item"><%= link_to 'Edit', edit_post_path(post) unless !user_signed_in? || !Post.exists?(user_id: current_user.id, id: post.id)%></p>
-            <p class="level-item"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } unless !user_signed_in? || !Post.exists?(user_id: current_user.id, id: post.id) %></p>
           </div>
         </nav>
         <!----->

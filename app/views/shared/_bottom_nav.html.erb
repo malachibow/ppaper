@@ -8,12 +8,16 @@
     <a class="navbar-item is-expanded is-block has-text-centered" href="/posts/new">
         <i class="material-icons f-30">add_circle_outline</i>
     </a>
-    <a class="navbar-item is-expanded is-block has-text-centered" href="/pages/notifications">
+    <%= link_to read_notification_path, method: :post, class: "navbar-item is-expanded is-block has-text-centered" do%>
     <i class="material-icons f-30">notifications_none</i>
-    </a>
+    <center>
+          <% if current_user.read_notification < Notification.where(user_id: current_user.id).order(created_at: :DESC).first.created_at %>
+            <i class="material-icons has-text-danger f-15 m-0 p-0">fiber_manual_record</i>
+          <% end %>
+    </center>
+    <% end %>
     <a class="navbar-item is-expanded is-block has-text-centered" href="/pages/more">
         <i class="material-icons f-30">more_horiz</i>
     </a>
 </div>
-<br>
 </nav>

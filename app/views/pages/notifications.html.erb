@@ -6,6 +6,7 @@
 <h1 class="title f-30 th-700 m-t-20">Notifications</h1> 
 <hr>
 <% @notifications.each do |notification|%>
+<%= link_to notification.post, class: "has-text-dark" do  %>
 <% if notification.notification_type == 0 %>
 <article class="media">
   <figure class="media-left">
@@ -14,10 +15,9 @@
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>Post Title</strong> <small>33 likes</small> • <small>15 comments</small> • <small>250 views</small>
+        <strong>Somebody liked your post <%= time_ago_in_words(notification.created_at) %> ago.</strong>
         <br>
-        Somebody liked your post 3 minutes ago.
-      </p>
+        <%= notification.post.title %>
     </div>
   </div>
 </article>
@@ -30,9 +30,8 @@
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>Post Title</strong> <small>33 likes</small> • <small>250 views</small>
+        <strong>Somebody commented on your post <%= time_ago_in_words(notification.created_at) %> ago.</strong>
         <br>
-        Somebody commented on your post 4 minutes ago.
         <div class="notification is-light">
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis amet quisquam dicta debitis nesciunt nostrum cum tempora mollitia harum nam alias iusto quasi unde, nihil odio veniam illo blanditiis consectetur?
         </div>
@@ -49,9 +48,7 @@
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>Post Title</strong>
-        <br>
-        Somebody reported your post. We are currently reviewing it. 
+        <strong>Somebody reported your post <%= time_ago_in_words(notification.created_at) %> ago. </strong> We are currently reviewing it. 
         It will be removed from the public feed until we evaluate whether or not 
         it abides by the persuasion paper guidelines. If we find that it does, it will be 
         re-posted to the public feed and you will be able to continue to post and interact with others on our platform.
@@ -63,6 +60,8 @@
   </div>
 
 </article>
+<% end %>
+<hr>
 <% end %>
 <% end %>
 </div>

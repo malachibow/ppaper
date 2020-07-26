@@ -19,10 +19,12 @@
 
     <div class="navbar-end">
     <% if user_signed_in? %>
-    <a class="navbar-item" href="/pages/notifications">
-      <i class="material-icons has-text-primary">notifications</i>
-      <i class="material-icons has-text-danger f-15">fiber_manual_record</i>
-    </a>
+      <%= link_to read_notification_path, method: :post, class: "navbar-item" do%>
+        <i class="material-icons has-text-primary">notifications</i>
+          <% if current_user.read_notification < Notification.where(user_id: current_user.id).order(created_at: :DESC).first.created_at %>
+            <i class="material-icons has-text-danger f-15">fiber_manual_record</i>
+          <% end %>
+      <% end %>
     <% end %>
       <div class="navbar-item">
 <% if user_signed_in? %>
@@ -49,3 +51,4 @@
 </nav>
 <br class="is-hidden-touch">
 <br class="is-hidden-touch">
+
