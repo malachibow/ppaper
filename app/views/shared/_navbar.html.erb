@@ -21,7 +21,7 @@
     <% if user_signed_in? %>
       <%= link_to read_notification_path, method: :post, class: "navbar-item" do%>
         <i class="material-icons has-text-primary">notifications</i>
-          <% if current_user.read_notification < Notification.where(user_id: current_user.id).order(created_at: :DESC).first.created_at %>
+          <% if !Notification.where(user_id: current_user.id).order(created_at: :DESC).nil? && current_user.read_notification < Notification.where(user_id: current_user.id).order(created_at: :DESC).first.created_at %>
             <i class="material-icons has-text-danger f-15">fiber_manual_record</i>
           <% end %>
       <% end %>
@@ -33,9 +33,9 @@
         <strong>Profile</strong>
     </a>
     <div class="navbar-dropdown is-right">
-  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %>
-  <%= link_to 'Admin dashboard', admin_root_path, :class => 'navbar-item' %>
-  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-item' %>
+      <%= link_to 'Admin dashboard', admin_root_path, :class => 'navbar-item' %>
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-item'  %>
     </div>
 </div>
 <% else %>
