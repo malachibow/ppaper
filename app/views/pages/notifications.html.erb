@@ -33,12 +33,11 @@
         <strong>Somebody commented on your post <%= time_ago_in_words(notification.created_at) %> ago.</strong>
         <br>
         <div class="notification is-light">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis amet quisquam dicta debitis nesciunt nostrum cum tempora mollitia harum nam alias iusto quasi unde, nihil odio veniam illo blanditiis consectetur?
+        <%= notification.post.body %>
         </div>
       </p>
     </div>
   </div>
-
 </article>
 <% elsif notification.notification_type == 2 %>
 <article class="media">
