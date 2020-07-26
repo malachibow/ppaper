@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:read_notifications]
+  before_action :authenticate_user!
 
   def read_notification
     current_user.read_notification = DateTime.current

@@ -9,7 +9,7 @@
     <% if !user_signed_in? %>
       <%= link_to "Sign up", new_user_registration_path, :class => 'button is-large is-primary th-700'  %>
     <% end %>
-    <button class="button is-large is-light th-500">How it works</button>
+    <a class="button is-large is-light th-500" href="/pages/how_it_works">How it works</a>
    </div>
     </div>
     <div class="column">
@@ -40,7 +40,7 @@
    <% if !user_signed_in? %>
     <button class="button is-primary th-700">Sign up</button>
    <% end %>
-    <button class="button is-light th-500">How it works</button>
+    <a class="button is-light th-500" href="/pages/how_it_works">How it works</a>
    </div>
     </div>
 </div>

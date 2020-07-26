@@ -1,7 +1,10 @@
 class PagesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:more, :notifications]
   def more
 
+  end
+
+  def how_it_works
   end
 
   def notifications

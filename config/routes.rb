@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'pages/more'
   get 'pages/notifications'
+  get 'pages/how_it_works'
   resources :rreplies
   get 'users/profile'
   post 'posts/report/:id', to: 'posts#report', as: 'posts_report'
