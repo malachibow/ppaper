@@ -40,6 +40,7 @@ class RepliesController < ApplicationController
         #create notification
         @notification = Notification.new(user_id: @post.user_id,
                                           post_id: @post.id,
+                                          content: reply_params[:content],
                                           notification_type: '1')
         @notification.save
         redirect_to request.referrer, notice: 'Reply was successfully created.'

@@ -8,6 +8,6 @@ module ApplicationHelper
     end
 
     def company_name
-        "persuasion paper"
+        "Persuasion Paper"
     end
 end

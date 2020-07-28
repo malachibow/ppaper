@@ -3,6 +3,7 @@
   <head>
     <title><%= company_name %></title>
     <%= favicon_link_tag asset_path('favicon.png') %>
+    <link rel="apple-touch-icon-precomposed" href="iphone-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <%= csrf_meta_tags %>
@@ -17,7 +18,9 @@
 <%= render 'shared/notifications'%>
 
 <%= yield %>
-<%= render 'shared/bottom_nav'%>
+<% if user_signed_in? %>
+  <%= render 'shared/bottom_nav'%>
+<% end %>
 
 
   </body>

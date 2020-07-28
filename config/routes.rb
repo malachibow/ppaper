@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :views
   get 'pages/more'
   get 'pages/notifications'
   get 'pages/how_it_works'

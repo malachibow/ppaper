@@ -4,29 +4,32 @@ class PostsController < ApplicationController
 
     #report a post
   def report 
-    @post.report = true
-    if @post.save
-        #create notification
-        @notification = Notification.new(user_id: @post.user_id,
-                                          post_id: @post.id,
-                                          notification_type: '2')
-        @notification.save
-      redirect_to request.referrer, notice: "Reply was successfully reported."
+    if !@post.report?
+      @post.report = true
+      if @post.save
+          #create notification
+          @notification = Notification.new(user_id: @post.user_id,
+                                            post_id: @post.id,
+                                            notification_type: '2')
+          @notification.save
+        redirect_to post_path(@post.id), notice: "Post was successfully reported."
+      end
+    else
+      redirect_to post_path(@post.id), notice: "Post was already reported."
     end
-  end
-
-  #randomize or order posts algorithm
-  def order_posts
-    @posts = Post.all.order('RANDOM()')
   end
 
   # GET /posts
   # GET /posts.json
   def index
-    if params.has_key?(:search) && !params[:search].blank?
-      @pagy, @posts = pagy(Post.where(report: false).where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%"), items: 3)
+    if user_signed_in? && !params[:search].blank? && params.has_key?(:search)
+      @post = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(id: View.select("post_id").where(user_id: current_user.id), report: false).order("RANDOM()")
+      if @post.blank?
+        @post = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(report: false).order("RANDOM()").first
+      end
     else
-      @pagy, @posts = pagy(Post.where(report: false), items: 3)
+      randomize
+      @post = @initial_post
     end
   end
 
@@ -38,7 +41,7 @@ class PostsController < ApplicationController
     #create favorite
     if Favorite.exists?(post_id: @post.id, user_id: current_user.id)
       @favorite.destroy
-      redirect_to request.referrer, notice: "Post unfavorited"
+      redirect_to post_path(@post.id), notice: "Post unfavorited"
     else
       @favorite = Favorite.new(user_id: current_user.id,
                                 post_id: @post.id)
@@ -48,9 +51,9 @@ class PostsController < ApplicationController
                                           post_id: @post.id,
                                           notification_type: '0')
         @notification.save
-        redirect_to request.referrer, notice: "Post favorited :)"
+        redirect_to post_path(@post.id), notice: "Post favorited :)"
       else
-        redirect_to request.referrer, alert: "Somthing went wrong"
+        redirect_to post_path(@post.id), alert: "Somthing went wrong"
       end
     end 
   end
@@ -89,6 +92,19 @@ class PostsController < ApplicationController
   end
 
   private
+    def randomize
+        if user_signed_in?
+        @initial_post = Post.where.not(id: View.select("post_id").where(user_id: current_user.id), report: true).order("RANDOM()").first
+        end
+        if !@initial_post.blank?
+          @view = View.new(user_id: current_user.id,
+          post_id: @initial_post.id)
+          @view.save
+          else
+          @initial_post = Post.order("RANDOM()").first
+        end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])

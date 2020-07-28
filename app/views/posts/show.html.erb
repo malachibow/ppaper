@@ -8,7 +8,30 @@
 
         <h2 class="title th-700 f-20"><%= @post.title %></h2>
         <p class="subtitle f-15"><%= @post.body %></p>
-<%= link_to 'Back', posts_path %>
+        <!--level--->
+        <nav class="level is-mobile m-b-0">
+          <!-- Right side -->
+          <div class="level-left">
+            <p class="level-item">
+                <% if user_signed_in? && !Favorite.exists?(post_id: @post.id, user_id: current_user.id) %>
+                  <%= link_to favorite_path(@post), method: :post, remote: true do %>
+                    <i class="material-icons">favorite_border</i>
+                  <% end %>
+                <% elsif user_signed_in? %>
+                  <%= link_to favorite_path(@post), method: :post, remote: true do %>
+                    <i class="material-icons">favorite</i>
+                  <% end %>
+                <% end %>
+            </p>
+          </div>
+          <div class="level-right">
+            <p class="level-item"><a>Share</a></p>
+            <% if !@post.report? %>
+              <p class="level-item"><%= link_to 'Report', posts_report_path(@post), method: :post %> </p>
+            <% end %>
+          </div>
+        </nav>
+        <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%></div>
 <!--replies-->
 <%= form_for Reply.new do |f| %>
 <%= f.hidden_field :post_id, value: @post.id%>
@@ -19,6 +42,7 @@
 </div>
 <%= f.submit "submit", class: "button is-primary"%>
 <% end %>
+<%= link_to 'Back', posts_path %>
   </div>
 </div>
 <br><br>

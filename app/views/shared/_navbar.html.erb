@@ -1,10 +1,42 @@
+<% if !user_signed_in? %>
+<nav class="navbar is-fixed-top has-shadow is-spaced is-hidden-desktop" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%if !user_signed_in? || current_page?(root_path)%>
+      <a href="/" class="navbar-item th-700 f-25 has-text-primary">Persuasion Paper</a>
+    <%end%>
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+<% if !user_signed_in? %>
+<div class="buttons">
+  <%= link_to "Sign up", new_user_registration_path, :class => 'button is-primary navbar-item th-700'  %>
+  <%= link_to "Login", new_user_session_path, :class => 'button is-light navbar-item'  %>
+</div>
+<% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<br class="is-hidden-desktop">
+<br class="is-hidden-desktop">
+  
+<% end %>
+
 
 <nav class="navbar is-fixed-top has-shadow is-spaced is-hidden-touch" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a href="/" class="navbar-item">
-      <h1 class="title th-700 f-20 has-text-primary">persuasion paper</h1>
-    </a>
-
+    <%if !user_signed_in? || current_page?(root_path)%>
+      <a href="/" class="navbar-item th-700 f-25 has-text-primary">Persuasion Paper</a>
+    <%end%>
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -14,7 +46,8 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-    <a href="/posts/new" class="navbar-item">new post</a>
+    <a href="/posts" class="navbar-item <%if current_page?(posts_path)%> th-700 has-text-primary<%end%>">discover</a>
+    <a href="/posts/new" class="navbar-item <%if current_page?(new_post_path)%> th-700 has-text-primary<%end%>">new post</a>
     </div>
 
     <div class="navbar-end">

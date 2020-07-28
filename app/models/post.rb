@@ -17,4 +17,8 @@ class Post < ApplicationRecord
     length: {maximum: 100},
     on: :create
 
+  def self.randomize
+    all.order(RANDOM())
+  end
+
 end
