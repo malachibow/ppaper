@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :views
   get 'pages/more'
+  get 'pages/my_posts', as: 'my_posts'
+  get 'pages/my_favorites', as: 'my_favorites'
   get 'pages/notifications'
   get 'pages/how_it_works'
   resources :rreplies

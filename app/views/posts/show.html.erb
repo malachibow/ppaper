@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="column is-3 p-0"></div>
     <div class="column m-b-0 p-b-0">
-<h1 class="title f-30 th-700 m-t-20">Post</h1> <hr>
+<h1 class="title f-30 th-700 m-t-20">Paper</h1> <hr>
 <div class="card">
   <div class="card-content">
 
@@ -31,7 +31,7 @@
             <% end %>
           </div>
         </nav>
-        <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%></div>
+        <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: @post.id).count, 'views')%></div>
 <!--replies-->
 <%= form_for Reply.new do |f| %>
 <%= f.hidden_field :post_id, value: @post.id%>

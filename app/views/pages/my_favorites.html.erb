@@ -2,9 +2,9 @@
   <div class="columns">
     <div class="column is-3 p-0"></div>
     <div class="column m-b-0 p-b-0 is-6">
-    <h1 class="title f-30 th-700 m-t-20">Paper Feed</h1> 
+    <h1 class="title f-30 th-700 m-t-20">My Favorites</h1> 
 <!--search-->
-<%= form_tag(posts_path, method: :get) do %>
+<%= form_tag(my_favorites_path, method: :get) do %>
 <div class="control has-icons-left has-icons-right">
     <%= text_field_tag :search, params[:search], class: "input is-light", placeholder: "Search for a topic or a phrase" %>
   <span class="icon is-small is-left">
@@ -20,48 +20,45 @@
     <% end %>
     </div>
     <br><br>
+    <% @posts.each do |post|%>
     <div class="card">
       <div class="card-content">
-        <h2 class="title th-700 f-20"><%= @post.title %></h2>
-        <p class="subtitle f-15"><%= @post.body %></p>
+        <h2 class="title th-700 f-20"><%= post.title %></h2>
+        <p class="subtitle f-15"><%= post.body %></p>
         <!--level--->
         <nav class="level is-mobile m-b-0">
           <!-- Right side -->
           <div class="level-left">
             <p class="level-item">
-                <% if user_signed_in? && !Favorite.exists?(post_id: @post.id, user_id: current_user.id) %>
-                  <%= link_to favorite_path(@post), method: :post, remote: true do %>
+                <% if user_signed_in? && !Favorite.exists?(post_id: post.id, user_id: current_user.id) %>
+                  <%= link_to favorite_path(post), method: :post, remote: true do %>
                     <i class="material-icons">favorite_border</i>
                   <% end %>
                 <% elsif user_signed_in? %>
-                  <%= link_to favorite_path(@post), method: :post, remote: true do %>
+                  <%= link_to favorite_path(post), method: :post, remote: true do %>
                     <i class="material-icons">favorite</i>
                   <% end %>
                 <% end %>
             </p>
             <p class="level-item">
-            <%= link_to @post do %>
+            <%= link_to post do %>
             <i class="material-icons">reply_all</i>
             <% end %>
             </p>
           </div>
           <div class="level-right">
             <p class="level-item"><a>Share</a></p>
-            <p class="level-item"><%= link_to 'Report', posts_report_path(@post), method: :post %> </p>
+            <p class="level-item"><%= link_to 'Report', posts_report_path(post), method: :post %> </p>
           </div>
         </nav>
+        <div class="subtitle is-7"><%= pluralize(Favorite.where(post_id: post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: post.id).count, 'views')%></div>
         <!----->
       </div>
     </div>
     <br>
+    <% end %>
 <br>
     </div>
 
   </div>
 </div>
-
-
-
-
-
-

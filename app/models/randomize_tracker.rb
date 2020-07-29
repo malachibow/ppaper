@@ -1,2 +1,0 @@
-class RandomizeTracker < ApplicationRecord
-end

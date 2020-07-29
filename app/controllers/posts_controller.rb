@@ -23,10 +23,10 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     if user_signed_in? && !params[:search].blank? && params.has_key?(:search)
-      @post = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(id: View.select("post_id").where(user_id: current_user.id), report: false).order("RANDOM()")
-      if @post.blank?
-        @post = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(report: false).order("RANDOM()").first
-      end
+      @post = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where.not(id: View.select("post_id").where(user_id: current_user.id), report: true).order("RANDOM()")
+    if @post.blank?
+      @post = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(report: false).order("RANDOM()").first
+    end
     else
       randomize
       @post = @initial_post
