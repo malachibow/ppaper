@@ -25,13 +25,12 @@
             </p>
           </div>
           <div class="level-right">
-            <p class="level-item"><a>Share</a></p>
             <% if !@post.report? %>
               <p class="level-item"><%= link_to 'Report', posts_report_path(@post), method: :post %> </p>
             <% end %>
           </div>
         </nav>
-        <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: @post.id).count, 'views')%></div>
+        <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: @post.id).count, 'vews')%></div>
 <!--replies-->
 <%= form_for Reply.new do |f| %>
 <%= f.hidden_field :post_id, value: @post.id%>

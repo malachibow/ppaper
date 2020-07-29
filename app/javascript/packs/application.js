@@ -11,6 +11,7 @@ require("channels")
 require("jquery")
 
 window.Noty = require("noty")
+require('packs/social-share-button.js.erb')
 
 //toggle navbar burger
 document.addEventListener("turbolinks:load", function() {
