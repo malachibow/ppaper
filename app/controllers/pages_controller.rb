@@ -3,17 +3,17 @@ class PagesController < ApplicationController
   
   def my_favorites
     if !params[:search].blank? && params.has_key?(:search)
-      @posts = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(id: Favorite.select("post_id").where(user_id: current_user.id))
+      @pagy, @posts = pagy(Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(id: Favorite.select("post_id").where(user_id: current_user.id)))
     else
-      @posts = Post.where(id: Favorite.select("post_id").where(user_id: current_user.id))
+      @pagy, @posts = pagy(Post.where(id: Favorite.select("post_id").where(user_id: current_user.id)))
     end
   end
 
   def my_posts
     if !params[:search].blank? && params.has_key?(:search)
-      @posts = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(user_id: current_user.id)
+      @pagy, @posts = pagy(Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(user_id: current_user.id))
     else
-      @posts = Post.where(user_id: current_user.id)
+      @pagy, @posts = pagy(Post.where(user_id: current_user.id))
     end
   end
 
