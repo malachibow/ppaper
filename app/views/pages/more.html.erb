@@ -3,10 +3,10 @@
 <hr>
 <table class="table is-fullwidth">
 <tr>
-    <td>My Posts</td>
+    <td><%= link_to 'My Posts', my_posts_path, :class => 'navbar-item' %></td>
 </tr>
 <tr>
-    <td>Favorited</td>
+    <td><%= link_to 'Favorites', my_favorites_path, :class => 'navbar-item' %></td>
 </tr>
 </table>
 <table class="table is-fullwidth">
