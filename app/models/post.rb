@@ -5,7 +5,7 @@ class Post < ApplicationRecord
     presence: true,
     length: {maximum: 100},
     on: :create,
-    allow_nil: false
+    allow_nil: true
 
   validates :body,
     presence: true,

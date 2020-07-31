@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_28_145952) do
+ActiveRecord::Schema.define(version: 2020_07_31_014406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,12 +88,31 @@ ActiveRecord::Schema.define(version: 2020_07_28_145952) do
     t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
+  create_table "reply_favorites", force: :cascade do |t|
+    t.bigint "reply_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["reply_id"], name: "index_reply_favorites_on_reply_id"
+    t.index ["user_id"], name: "index_reply_favorites_on_user_id"
+  end
+
   create_table "rreplies", force: :cascade do |t|
     t.bigint "reply_id", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "report", default: false
     t.index ["reply_id"], name: "index_rreplies_on_reply_id"
+  end
+
+  create_table "rreply_favorites", force: :cascade do |t|
+    t.bigint "rreply_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["rreply_id"], name: "index_rreply_favorites_on_rreply_id"
+    t.index ["user_id"], name: "index_rreply_favorites_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -135,7 +154,11 @@ ActiveRecord::Schema.define(version: 2020_07_28_145952) do
   add_foreign_key "posts", "users"
   add_foreign_key "replies", "posts"
   add_foreign_key "replies", "users"
+  add_foreign_key "reply_favorites", "replies"
+  add_foreign_key "reply_favorites", "users"
   add_foreign_key "rreplies", "replies"
+  add_foreign_key "rreply_favorites", "rreplies"
+  add_foreign_key "rreply_favorites", "users"
   add_foreign_key "views", "posts"
   add_foreign_key "views", "users"
 end

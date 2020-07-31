@@ -12,18 +12,13 @@
   <% end %>
 
   <div class="field">
-    <label for="">Title for this post (100 characters)</label>
-    <%= form.text_area :title, class: "textarea is-light", rows: "1", maxlength: 100, required: true %>
-  </div>
-
-  <div class="field">
     <label for="">The content for your thought or belief (600 characters)</label>
-    <%= form.text_area :body, class: "textarea is-light", rows: "3", maxlength: 600, required: true %>
+    <%= form.text_area :body, class: "textarea is-light", rows: "3", maxlength: 600, required: true, placeholder: "I think purple is a bad color for this website" %>
   </div>
 
   <div class="field">
-    <label for="">Tags to help people find this post (100 characters)</label>
-    <%= form.text_field :tags, class: "input is-light", maxlength: 100, required: true %>
+    <label for="">Keywords to help people find this post (100 characters)</label>
+    <%= form.text_field :tags, class: "input is-light", maxlength: 100, required: true,  placeholder: "purple website color" %>
   </div>
 
   <div class="actions">

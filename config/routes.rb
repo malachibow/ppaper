@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get 'pages/my_favorites', as: 'my_favorites'
   get 'pages/notifications'
   get 'pages/how_it_works'
+  post 'rreplies/report/:id', to: 'rreplies#report', as: 'rreplies_report'
+  post 'replies/favorite/:id', to: 'replies#favorite', as: 'favorite_reply'
+  post 'rreplies/favorite/:id', to: 'rreplies#favorite', as: 'favorite_rreply'
   resources :rreplies
   get 'users/profile'
   post 'posts/report/:id', to: 'posts#report', as: 'posts_report'

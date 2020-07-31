@@ -61,16 +61,12 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
-    @replies = Reply.where(post_id: @post.id)
+    @pagy, @replies = pagy(Reply.where(post_id: @post.id, report: false), items: 5)
   end
 
   # GET /posts/new
   def new
     @post = Post.new
-  end
-
-  # GET /posts/1/edit
-  def edit
   end
 
   # POST /posts

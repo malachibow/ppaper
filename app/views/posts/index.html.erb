@@ -22,8 +22,8 @@
     <br><br>
     <div class="card">
       <div class="card-content">
-        <h2 class="title th-700 f-20"><%= @post.title %></h2>
-        <p class="subtitle f-15"><%= @post.body %></p>
+        <strong class="title th-700 f-20"><%=time_ago_in_words(@post.created_at)%> ago</strong> <%= link_to 'Report', posts_report_path(@post), method: :post %>
+        <p class="subtitle f-20"><%= @post.body %></p>
         <!--level--->
         <nav class="level is-mobile m-b-0">
           <!-- Right side -->
@@ -44,9 +44,6 @@
             <i class="material-icons">reply_all</i>
             <% end %>
             </p>
-          </div>
-          <div class="level-right">
-            <p class="level-item"><%= link_to 'Report', posts_report_path(@post), method: :post %> </p>
           </div>
         </nav>
         <!----->

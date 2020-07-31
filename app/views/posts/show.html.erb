@@ -6,8 +6,8 @@
 <div class="card">
   <div class="card-content">
 
-        <h2 class="title th-700 f-20"><%= @post.title %></h2>
-        <p class="subtitle f-15"><%= @post.body %></p>
+        <strong class="title th-700 f-20"><%=time_ago_in_words(@post.created_at)%> ago</strong> <% if !@post.report? %> <%= link_to 'Report', posts_report_path(@post), method: :post %> <% end %>
+        <p class="subtitle f-20"><%= @post.body %></p>
         <!--level--->
         <nav class="level is-mobile m-b-0">
           <!-- Right side -->
@@ -23,11 +23,6 @@
                   <% end %>
                 <% end %>
             </p>
-          </div>
-          <div class="level-right">
-            <% if !@post.report? %>
-              <p class="level-item"><%= link_to 'Report', posts_report_path(@post), method: :post %> </p>
-            <% end %>
           </div>
         </nav>
         <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: @post.id).count, 'vews')%></div>
@@ -46,17 +41,60 @@
 </div>
 <br><br>
 <% @replies.each do |reply|%>
-<strong><%=time_ago_in_words(reply.created_at)%></strong>
+<!---reply--->
+<strong><%=time_ago_in_words(reply.created_at)%> ago</strong> <%= link_to 'Report', replies_report_path(reply), method: :post %> 
+<div class="is-pulled-right">
+<%= ReplyFavorite.where(reply_id: reply.id).count %>
+                <% if user_signed_in? && !ReplyFavorite.exists?(reply_id: reply.id, user_id: current_user.id) %>
+                  <%= link_to favorite_reply_path(reply.id), method: :post, remote: true do %>
+                    <i class="material-icons">favorite_border</i>
+                  <% end %>
+                <% elsif user_signed_in? %>
+                  <%= link_to favorite_reply_path(reply.id), method: :post, remote: true do %>
+                    <i class="material-icons">favorite</i>
+                  <% end %>
+                <% else %>
+                  <i class="material-icons has-text-primary">favorite</i>
+                <% end %>
+</div>
 <p class="subtitle is-6"><%=reply.content%></p>
-<!--level--->
-<nav class="level is-mobile">
-  <div class="level-right">
-    <p class="level-item"><%= link_to 'Report', replies_report_path(reply), method: :post %> </p>
+<!--reply to reply-->
+<%= form_for Rreply.new do |f| %>
+<%= f.hidden_field :reply_id, value: reply.id%>
+<div class="field m-t-20">
+  <div class="control">
+    <%= f.text_area :content, class: "textarea is-light is-small", placeholder: "What do you think about this?", rows: "1"%>
   </div>
-</nav>
+</div>
+<%= f.submit "submit", class: "button is-primary is-small"%>
+<% end %>
+<hr>
+<!--replies of the reply-->
+<% Rreply.where(reply_id: reply.id, report: false).each do |rreply|%>
+<div class="is-pulled-left">|</div>
+<!---reply to reply---->
+<div class="m-l-40">
+<strong class="title is-7"><%=time_ago_in_words(rreply.created_at)%> ago</strong> <%= link_to 'Report', rreplies_report_path(rreply), method: :post, class: "f-10" %>
+<div class="is-pulled-right">
+                <%= RreplyFavorite.where(rreply_id: rreply.id).count %>
+                <% if user_signed_in? && !RreplyFavorite.exists?(rreply_id: rreply.id, user_id: current_user.id) %>
+                  <%= link_to favorite_rreply_path(rreply.id), method: :post, remote: true do %>
+                    <i class="material-icons">favorite_border</i>
+                  <% end %>
+                <% elsif user_signed_in? %>
+                  <%= link_to favorite_rreply_path(rreply.id), method: :post, remote: true do %>
+                    <i class="material-icons">favorite</i>
+                  <% end %>
+                <% else %>
+                  <i class="material-icons has-text-primary">favorite</i>
+                <% end %>
+</div>
+<p class="subtitle is-7 m-b-5"><%=rreply.content%></p>
+</div>
 <hr>
 <% end %>
-
+<% end %>
+<%== pagy_bulma_nav(@pagy) %>
     </div>
     <div class="column is-3"></div>
   </div>

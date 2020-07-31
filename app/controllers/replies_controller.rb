@@ -1,6 +1,6 @@
 class RepliesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_reply, only: [:show, :edit, :update, :destroy, :report]
+  before_action :set_reply, only: [:show, :edit, :update, :destroy, :report, :favorite]
 
   #report a post
   def report 
@@ -9,6 +9,32 @@ class RepliesController < ApplicationController
       redirect_to request.referrer, notice: "Reply was successfully reported."
     end
   end
+
+  #favorite a reply
+  def favorite
+    @reply = Reply.find(params[:id])
+    @favorite = ReplyFavorite.find_by(reply_id: @reply.id, user_id: current_user.id)
+
+    #create favorite
+    if ReplyFavorite.exists?(reply_id: @reply.id, user_id: current_user.id)
+      @favorite.destroy
+      redirect_to request.referrer, notice: "Reply unfavorited"
+    else
+      @favorite = ReplyFavorite.new(user_id: current_user.id,
+                                reply_id: @reply.id)
+      if @favorite.save
+        #create notification
+        @notification = Notification.new(user_id: @reply.post.user_id,
+                                          post_id: @reply.post_id,
+                                          notification_type: '0')
+        @notification.save
+        redirect_to request.referrer, notice: "Post favorited :)"
+      else
+        redirect_to request.referrer, alert: "Somthing went wrong"
+      end
+    end 
+  end
+
   # GET /replies
   # GET /replies.json
   def index
@@ -35,6 +61,7 @@ class RepliesController < ApplicationController
     @post = Post.find_by(id: reply_params[:post_id])
     @reply = Reply.new(reply_params)
     @reply.user_id = current_user.id
+    @reply.report = false
 
       if @reply.save
         #create notification
