@@ -1,6 +1,6 @@
 class RrepliesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_rreply, only: [:show, :edit, :update, :destroy, :report, :favorite]
-  before_action :check_if_banned_user, only: [:report, :create]
 
   #report a post
   def report 
@@ -35,26 +35,6 @@ class RrepliesController < ApplicationController
     end 
   end
 
-  # GET /rreplies
-  # GET /rreplies.json
-  def index
-    @rreplies = Rreply.all
-  end
-
-  # GET /rreplies/1
-  # GET /rreplies/1.json
-  def show
-  end
-
-  # GET /rreplies/new
-  def new
-    @rreply = Rreply.new
-  end
-
-  # GET /rreplies/1/edit
-  def edit
-  end
-
   # POST /rreplies
   # POST /rreplies.json
   def create
@@ -78,7 +58,7 @@ class RrepliesController < ApplicationController
 
     def check_if_banned_user
       if user_signed_in? && Post.where(user_id: current_user.id, report: true, checked: true).count >= 3
-        redirect_to request.referrer, alert: "You have been banned from posting on the application. Too many of your posts were reported and taken down. Please contact support for more details."
+        return
       end
     end
 
