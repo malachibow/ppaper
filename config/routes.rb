@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :views
   get 'pages/more'
+  get 'pages/like_persuasion_paper'
+  put 'pages/remove/:id', to: 'pages#remove', as: 'remove_post'
+  put 'pages/keep/:id', to: 'pages#keep', as: 'keep_post'
+  get 'pages/reported'
   get 'pages/my_posts', as: 'my_posts'
   get 'pages/my_favorites', as: 'my_favorites'
   get 'pages/notifications'

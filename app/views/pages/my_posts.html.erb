@@ -14,16 +14,12 @@
 <% end %>
 <!--posts-->
     <hr>
-    <div class="is-pulled-right">
-    <%= link_to posts_path(search: params[:search]) do %>
-      <button class="button is-primary th-600">Shuffle <i class="material-icons">shuffle</i> </button>
-    <% end %>
-    </div>
-    <br><br>
+
     <% @posts.each do |post|%>
     <div class="card">
       <div class="card-content">
-        <h2 class="title th-700 f-20"><%= post.title %></h2>
+        <strong class="title th-700 f-20"><%=time_ago_in_words(post.created_at)%> ago</strong>
+        <br>
         <p class="subtitle f-15"><%= post.body %></p>
         <!--level--->
         <nav class="level is-mobile m-b-0">
@@ -45,9 +41,6 @@
             <i class="material-icons">reply_all</i>
             <% end %>
             </p>
-          </div>
-          <div class="level-right">
-            <p class="level-item"><%= link_to 'Report', posts_report_path(post), method: :post %> </p>
           </div>
         </nav>
         <div class="subtitle is-7"><%= pluralize(Favorite.where(post_id: post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: post.id).count, 'views')%></div>

@@ -1,4 +1,4 @@
-<div class="section m-b-0 p-b-0">
+<div class="section m-b-0 p-b-0 fade-in">
   <div class="columns">
     <div class="column is-3 p-0"></div>
     <div class="column m-b-0 p-b-0">
@@ -6,7 +6,8 @@
 <div class="card">
   <div class="card-content">
 
-        <strong class="title th-700 f-20"><%=time_ago_in_words(@post.created_at)%> ago</strong> <% if !@post.report? %> <%= link_to 'Report', posts_report_path(@post), method: :post %> <% end %>
+        <strong class="title th-700 f-20 m-b-20"><%=time_ago_in_words(@post.created_at)%> ago</strong> <% if !@post.report? %> <%= link_to 'Report', posts_report_path(@post), method: :post %> <% end %>
+        <br>
         <p class="subtitle f-20"><%= @post.body %></p>
         <!--level--->
         <nav class="level is-mobile m-b-0">
@@ -31,7 +32,7 @@
 <%= f.hidden_field :post_id, value: @post.id%>
 <div class="field m-t-20">
   <div class="control">
-    <%= f.text_area :content, class: "textarea is-light", placeholder: "What do you think about this? This is where you leave your thoughts respectfully.", rows: "3"%>
+    <%= f.text_area :content, class: "textarea is-light", maxlength: 600, placeholder: "What do you think about this? This is where you leave your thoughts respectfully.", rows: "3"%>
   </div>
 </div>
 <%= f.submit "submit", class: "button is-primary"%>
@@ -63,7 +64,7 @@
 <%= f.hidden_field :reply_id, value: reply.id%>
 <div class="field m-t-20">
   <div class="control">
-    <%= f.text_area :content, class: "textarea is-light is-small", placeholder: "What do you think about this?", rows: "1"%>
+    <%= f.text_area :content, class: "textarea is-light is-small", maxlength: 600, placeholder: "What do you think about this?", rows: "1"%>
   </div>
 </div>
 <%= f.submit "submit", class: "button is-primary is-small"%>
@@ -71,7 +72,7 @@
 <hr>
 <!--replies of the reply-->
 <% Rreply.where(reply_id: reply.id, report: false).each do |rreply|%>
-<div class="is-pulled-left">|</div>
+<div class="is-pulled-left f-35">|</div>
 <!---reply to reply---->
 <div class="m-l-40">
 <strong class="title is-7"><%=time_ago_in_words(rreply.created_at)%> ago</strong> <%= link_to 'Report', rreplies_report_path(rreply), method: :post, class: "f-10" %>

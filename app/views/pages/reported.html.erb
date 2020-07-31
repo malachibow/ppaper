@@ -1,0 +1,27 @@
+<div class="section">
+    <div class="container">
+<h1 class="title th-700 f-35">Reported</h1>
+<table class="table is-fullwidth">
+<thead>
+<tr>
+<td>content</td>
+<td>action</td>
+</tr>
+</thead>
+<tbody>
+<% @reported.each do |post| %>
+<tr>
+<td><%=post.body%></td>
+<td>
+<div class="buttons">
+<%= link_to 'keep', keep_post_path(post.id), class: "button is-small is-info", method: :put %>
+<%= link_to 'remove', remove_post_path(post.id), class: "button is-small is-danger", method: :put %>
+</div>
+</td>
+</tr>
+<% end %>
+</tbody>
+</table>
+<%== pagy_bulma_nav(@pagy) %>
+    </div>
+</div>

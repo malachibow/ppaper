@@ -3,23 +3,26 @@
 <hr>
 <table class="table is-fullwidth">
 <tr>
-    <td><%= link_to 'My Posts', my_posts_path, :class => 'navbar-item' %></td>
+    <td><%= link_to 'My Posts', my_posts_path, class:"has-text-dark"%></td>
 </tr>
 <tr>
-    <td><%= link_to 'Favorites', my_favorites_path, :class => 'navbar-item' %></td>
+    <td><%= link_to 'Favorites', my_favorites_path, class:"has-text-dark"%></td>
+</tr>
+<tr>
+    <td><%= link_to 'Do you like Persuasion Paper?', pages_like_persuasion_paper_path, class:"has-text-dark"%></td>
 </tr>
 </table>
 <table class="table is-fullwidth">
 <% if current_user.admin? %>
 <tr>
-    <td><%= link_to 'Admin dashboard', admin_root_path %></td>
+    <td><%= link_to 'Admin dashboard', admin_root_path, class:"has-text-dark" %></td>
 </tr>
 <% end %>
 <tr>
-    <td><%= link_to 'Edit profile', edit_user_registration_path %></td>
+    <td><%= link_to 'Edit profile', edit_user_registration_path, class:"has-text-dark" %></td>
 </tr>
 <tr>
-    <td><%= link_to "Logout", destroy_user_session_path, method: :delete %></td>
+    <td><%= link_to "Logout", destroy_user_session_path, method: :delete, class:"has-text-dark" %></td>
 </tr>
 </table>
 </div>

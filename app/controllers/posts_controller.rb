@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :new, :create, :update, :destroy]
   before_action :set_post, only: [:show, :edit, :update, :destroy, :report]
+  before_action :check_if_banned_user, only: [:report, :new, :create]
 
     #report a post
   def report 
@@ -99,6 +100,12 @@ class PostsController < ApplicationController
           else
           @initial_post = Post.order("RANDOM()").first
         end
+    end
+
+    def check_if_banned_user
+      if user_signed_in? && Post.where(user_id: current_user.id, report: true, checked: true).count >= 3
+        redirect_to root_path, alert: "You have been banned from posting on the application. Too many of your posts were reported and taken down. Please contact support for more details."
+      end
     end
 
     # Use callbacks to share common setup or constraints between actions.

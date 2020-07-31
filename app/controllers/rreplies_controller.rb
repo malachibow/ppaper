@@ -1,5 +1,6 @@
 class RrepliesController < ApplicationController
   before_action :set_rreply, only: [:show, :edit, :update, :destroy, :report, :favorite]
+  before_action :check_if_banned_user, only: [:report, :create]
 
   #report a post
   def report 
@@ -73,6 +74,12 @@ class RrepliesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_rreply
       @rreply = Rreply.find(params[:id])
+    end
+
+    def check_if_banned_user
+      if user_signed_in? && Post.where(user_id: current_user.id, report: true, checked: true).count >= 3
+        redirect_to request.referrer, alert: "You have been banned from posting on the application. Too many of your posts were reported and taken down. Please contact support for more details."
+      end
     end
 
     # Only allow a list of trusted parameters through.
