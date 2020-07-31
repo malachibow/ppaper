@@ -11,8 +11,10 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="persuasionpaper" data-description="" data-message="Help us eliminate silence by supporting our mission! :)" data-color="#5e17eb" data-position="right" data-x_margin="18" data-y_margin="18"></script>
-  </head>
+      <% if current_page?(root_path) %>
+         <script data-name="BMC-Widget" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="persuasionpaper" data-description="" data-message="Help us eliminate silence by supporting our mission! :)" data-color="#5e17eb" data-position="right" data-x_margin="18" data-y_margin="18"></script>
+      <% end %>
+    </head>
 
   <body>
 <%= render 'shared/navbar'%>
