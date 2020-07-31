@@ -22,7 +22,7 @@
     <br><br>
     <div class="card fade-in">
       <div class="card-content">
-        <strong class="title th-700 f-20 m-b-20"><%=time_ago_in_words(@post.created_at)%> ago</strong> <%= link_to 'Report', posts_report_path(@post), method: :post %>
+        <strong class="title th-700 f-20 m-b-20"><%=time_ago_in_words(@post.created_at)%> ago</strong> <%= link_to 'Report', posts_report_path(@post.id), method: :post %>
         <br>
         <p class="subtitle f-20"><%= @post.body %></p>
         <!--level--->
