@@ -19,8 +19,8 @@
   <body>
 <%= render 'shared/navbar'%>
 <%= render 'shared/notifications'%>
-<%= yield %>
 <%= render 'shared/footer'%>
+<%= yield %>
 <% if user_signed_in? %>
   <%= render 'shared/bottom_nav'%>
 <% end %>
