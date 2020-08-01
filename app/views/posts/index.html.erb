@@ -3,6 +3,7 @@
     <div class="column is-3 p-0"></div>
     <div class="column m-b-0 p-b-0 is-6">
     <h1 class="title f-30 th-700 m-t-20">Paper Feed</h1> 
+<% if !@post.blank? %>
 <!--search-->
 <%= form_tag(posts_path, method: :get) do %>
 <div class="control has-icons-left has-icons-right">
@@ -53,6 +54,9 @@
     </div>
     <br>
 <br>
+<% else %>
+  <h1 class="title f-30 th-700 m-t-20">Nothing to show</h1> 
+<% end %>
     </div>
 
   </div>
