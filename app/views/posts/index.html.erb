@@ -48,7 +48,7 @@
             </p>
           </div>
         </nav>
-        <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: @post.id).count, 'vews')%></div>
+        <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: @post.id).count, 'views')%></div>
         <!----->
       </div>
     </div>
