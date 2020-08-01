@@ -5,7 +5,6 @@
 <h1 class="title f-30 th-700 m-t-20">Paper</h1> <hr>
 <div class="card">
   <div class="card-content">
-
         <strong class="title th-700 f-20 m-b-20"><%=time_ago_in_words(@post.created_at)%> ago</strong> <% if !@post.report? %> <%= link_to 'Report', posts_report_path(@post), method: :post %> <% end %>
         <br>
         <p class="subtitle f-20"><%= @post.body %></p>
@@ -28,16 +27,28 @@
         </nav>
         <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: @post.id).count, 'vews')%></div>
 <!--replies-->
-<%= form_for Reply.new do |f| %>
-<%= f.hidden_field :post_id, value: @post.id%>
-<div class="field m-t-20">
-  <div class="control">
-    <%= f.text_area :content, class: "textarea is-light", maxlength: 600, placeholder: "What do you think about this? This is where you leave your thoughts respectfully.", rows: "3"%>
+<% if @reply.blank? %>
+  <%= form_for Reply.new do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id%>
+  <div class="field m-t-20">
+    <div class="control">
+      <%= f.text_area :content, class: "textarea is-light", maxlength: 600, placeholder: "What do you think about this? This is where you leave your thoughts respectfully.", rows: "3"%>
+    </div>
   </div>
-</div>
-<%= f.submit "submit", class: "button is-primary"%>
+  <%= f.submit "submit", class: "button is-primary"%>
+  <% end %>
+<% else %>
+  <%= form_for @reply do |f| %>
+  <%= f.hidden_field :post_id, value: @post.id%>
+  <div class="field m-t-20">
+    <div class="control">
+      <%= f.text_area :content, class: "textarea is-light", maxlength: 600, placeholder: "What do you think about this? This is where you leave your thoughts respectfully.", rows: "3"%>
+    </div>
+  </div>
+  <%= f.submit "update", class: "button is-primary"%>
+  <% end %>
 <% end %>
-<%= link_to 'Back', posts_path %>
+
   </div>
 </div>
 <br><br>

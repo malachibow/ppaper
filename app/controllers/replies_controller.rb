@@ -38,6 +38,10 @@ class RepliesController < ApplicationController
   # POST /replies.json
   def create
     @post = Post.find_by(id: reply_params[:post_id])
+    if Reply.exists?(user_id: current_user.id, post_id: @post.id)
+      redirect_to request.referrer, notice: 'You have already created a reply for this post'
+      return
+    end
     @reply = Reply.new(reply_params)
     @reply.user_id = current_user.id
     @reply.report = false
@@ -53,6 +57,16 @@ class RepliesController < ApplicationController
       end
   end
 
+  def update
+    if @reply.user_id != current_user.id
+      redirect_to root_path, notice: 'You are not the creator of this reply.'
+      return
+    end
+    if @reply.update(reply_params)
+      redirect_to request.referrer, notice: 'Reply was successfully updated.'
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reply
@@ -61,6 +75,6 @@ class RepliesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def reply_params
-      params.require(:reply).permit(:post_id, :user_id, :report, :content)
+      params.require(:reply).permit(:post_id, :user_id, :content)
     end
 end

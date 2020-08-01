@@ -62,6 +62,9 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @pagy, @replies = pagy(Reply.where(post_id: @post.id, report: false), items: 5)
+    if user_signed_in?
+      @reply = Reply.find_by(user_id: current_user.id, post_id: @post.id)
+    end
   end
 
   # GET /posts/new

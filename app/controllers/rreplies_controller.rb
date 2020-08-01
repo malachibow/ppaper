@@ -39,13 +39,14 @@ class RrepliesController < ApplicationController
   # POST /rreplies.json
   def create
     @rreply = Rreply.new(rreply_params)
+    @rreply.user_id = current_user.id
 
     respond_to do |format|
       if @rreply.save
         format.html { redirect_to request.referrer, notice: 'Reply was successfully created.' }
         format.json { render :show, status: :created, location: @rreply }
       else
-        format.html { redirect_to request.referrer, alert: 'Reply was successfully created.'}
+        format.html { redirect_to request.referrer, alert: 'Something went wrong. Please try again.'}
         format.json { render json: @rreply.errors, status: :unprocessable_entity }
       end
     end
@@ -54,12 +55,6 @@ class RrepliesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_rreply
       @rreply = Rreply.find(params[:id])
-    end
-
-    def check_if_banned_user
-      if user_signed_in? && Post.where(user_id: current_user.id, report: true, checked: true).count >= 3
-        return
-      end
     end
 
     # Only allow a list of trusted parameters through.

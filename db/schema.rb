@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_31_142005) do
+ActiveRecord::Schema.define(version: 2020_08_01_012005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,7 +104,9 @@ ActiveRecord::Schema.define(version: 2020_07_31_142005) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "report", default: false
+    t.bigint "user_id", null: false
     t.index ["reply_id"], name: "index_rreplies_on_reply_id"
+    t.index ["user_id"], name: "index_rreplies_on_user_id"
   end
 
   create_table "rreply_favorites", force: :cascade do |t|
@@ -158,6 +160,7 @@ ActiveRecord::Schema.define(version: 2020_07_31_142005) do
   add_foreign_key "reply_favorites", "replies"
   add_foreign_key "reply_favorites", "users"
   add_foreign_key "rreplies", "replies"
+  add_foreign_key "rreplies", "users"
   add_foreign_key "rreply_favorites", "rreplies"
   add_foreign_key "rreply_favorites", "users"
   add_foreign_key "views", "posts"
