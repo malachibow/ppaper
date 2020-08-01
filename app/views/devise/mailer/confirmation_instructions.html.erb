@@ -11,7 +11,10 @@
     <div class="container">
 <div class="notification is-primary">
 
-<p>Welcome <%= @email %>! You can confirm your account email through the link below:</p>
+<p><strong>Welcome <%= @email %>!</strong> You are almost ready to start speaking your mind on Persuasion Paper. 
+We are committed to maintaining a safe and friendly environment for our users so first we need 
+to make sure this email address is real to make it a little more challenging for trolls to do what they do. 
+Please confirm your email below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
 </div>
