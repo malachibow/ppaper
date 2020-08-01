@@ -5,4 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :confirmable
   has_many :reply_favorites
   has_many :rreply_favorites
+
+  after_create do
+    self.read_notification = DateTime.current
+    self.save
+  end
 end
