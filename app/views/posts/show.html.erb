@@ -4,7 +4,7 @@
     <div class="column m-b-0 p-b-0">
     <br><br>
 <%= link_to 'Back', posts_path %>
-<h1 class="title f-30 th-700 m-t-20">Paper</h1> <hr>
+<h1 class="title f-30 th-700 m-t-20">Answers</h1> <hr>
 <div class="card">
   <div class="card-content">
         <strong class="title th-700 f-20 m-b-20"><%=time_ago_in_words(@post.created_at)%> ago</strong> <% if !@post.report? %> <%= link_to 'Report', posts_report_path(@post), method: :post %> <% end %>
