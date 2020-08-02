@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="column is-3 p-0"></div>
     <div class="column m-b-0 p-b-0 is-6">
-    <h1 class="title f-30 th-700 m-t-20">Paper Feed</h1> 
+    <h1 class="title f-30 th-700 m-t-20">Question Feed</h1> 
 <% if !@post.blank? %>
 <!--search-->
 <%= form_tag(posts_path, method: :get) do %>
@@ -31,24 +31,13 @@
           <!-- Right side -->
           <div class="level-left">
             <p class="level-item">
-                <% if user_signed_in? && !Favorite.exists?(post_id: @post.id, user_id: current_user.id) %>
-                  <%= link_to favorite_path(@post), method: :post, remote: true do %>
-                    <i class="material-icons">favorite_border</i>
-                  <% end %>
-                <% elsif user_signed_in? %>
-                  <%= link_to favorite_path(@post), method: :post, remote: true do %>
-                    <i class="material-icons">favorite</i>
-                  <% end %>
-                <% end %>
-            </p>
-            <p class="level-item">
             <%= link_to @post do %>
-            <i class="material-icons">reply_all</i>
+              Answer
             <% end %>
             </p>
           </div>
         </nav>
-        <div class="subtitle is-7 m-l-5"><%= pluralize(Favorite.where(post_id: @post.id).count, 'favorite') %> · <%= pluralize(Reply.where(post_id: @post.id).count, 'comment')%> · <%= pluralize(View.where(post_id: @post.id).count, 'views')%></div>
+        <div class="subtitle is-7"><%= pluralize(Reply.where(post_id: @post.id).count, 'Answers')%> · <%= pluralize(View.where(post_id: @post.id).count, 'Views')%></div>
         <!----->
       </div>
     </div>

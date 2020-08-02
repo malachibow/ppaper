@@ -3,7 +3,7 @@
 <nav class="navbar is-navigation is-fixed-bottom is-hidden-desktop has-shadow" role="navigation">
 <div class="navbar-brand">
     <a class="navbar-item is-expanded is-block has-text-centered" href="/posts">
-    <i class="material-icons f-30">search</i>
+    <i class="material-icons f-30">help_outline</i>
     </a>
     <a class="navbar-item is-expanded is-block has-text-centered" href="/posts/new">
         <i class="material-icons f-30">add_circle_outline</i>
@@ -11,7 +11,7 @@
     <%= link_to read_notification_path, method: :post, class: "navbar-item is-expanded is-block has-text-centered" do%>
     <i class="material-icons f-30">notifications_none</i>
     <center>
-          <% if user_signed_in? && !Notification.where(user_id: current_user.id).blank? &&  current_user.read_notification < Notification.where(user_id: current_user.id).order(created_at: :DESC).first.created_at %>
+          <% if user_signed_in? && !Notification.where(user_id: current_user.id).blank? && current_user.read_notification < Notification.where(user_id: current_user.id).order(created_at: :DESC).first.created_at %>
             <i class="material-icons has-text-danger f-15 m-0 p-0">fiber_manual_record</i>
           <% else %>
           <br>
