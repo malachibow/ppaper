@@ -21,4 +21,8 @@ class Post < ApplicationRecord
     all.order(RANDOM())
   end
 
+  def self.not_reported
+    where(report: 0, checked: 0)
+  end
+
 end

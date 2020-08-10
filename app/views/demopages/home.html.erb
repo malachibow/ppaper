@@ -1,16 +1,11 @@
-<div class="section hero is-fullheight is-hidden-touch">
+<div class="section hero is-hidden-touch">
 <div class="container m-t-90">
 <div class="columns">
     <div class="column is-6">
      <h1 class="title f-60 th-700"><%= company_name %> is a place to share your wildest opinions on any topic</h1>
     <h2 class="subtitle is-3 th-400">Because it's fun to know what people actually think</h2>
  <!---buttons--->
-   <div class="buttons">
-   <div class="buttons">
-    <a class="button is-primary th-500 is-large" href="/posts">Discover</a>
     <a href="https://www.producthunt.com/posts/persuasion-paper?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-persuasion-paper" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=225114&theme=dark" alt="Persuasion Paper - A place to share your wildest opinions on any topic | Product Hunt Embed" style="width: 270px; height: 60px;" width="270px" height="60px" /></a>
-   </div>
-   </div>
     </div>
     <div class="column">
     <center>
@@ -24,7 +19,8 @@
 </div>
 </div>
 
-<div class="section hero is-fullheight is-hidden-desktop">
+<div class="section hero is-hidden-desktop">
+<br><br>
 <div class="container">
 <div class="columns">
     <div class="column">
@@ -36,11 +32,7 @@
      <h1 class="title f-30 th-700"><%= company_name %> is a place to share your wildest opinions on any topic</h1>
     <h2 class="subtitle is-4 th-400">Because it's fun to know what people actually think</h2>
  <!---buttons--->
-   <div class="buttons">
-    <a class="button is-primary th-500" href="/posts">Discover</a>
     <a href="https://www.producthunt.com/posts/persuasion-paper?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-persuasion-paper" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=225114&theme=dark" alt="Persuasion Paper - A place to share your wildest opinions on any topic | Product Hunt Embed" style="width: 200px; height: 40px;" width="250px" height="54px" /></a>
-
-   </div>
     </div>
 </div>
 </div>
@@ -50,7 +42,7 @@
 </div>
 
 <!-----------------2nd part--------------------->
-<div class="section hero is-fullheight is-hidden-touch">
+<div class="section hero is-hidden-touch is-primary">
 <div class="container m-t-90">
 <div class="columns">
     <div class="column is-6">
@@ -58,8 +50,10 @@
     <h2 class="subtitle is-3 th-400">It's dangerous to speak your mind these days without losing your job or having your house egged on halloween. This is why <%= company_name %> was created. 
     None of your information will ever be shared with the public and we only ask for your email in effort to keep Persuasion Paper troll and spam free.</h2>
     </div>
-    <div class="column">
-      <%= image_tag 'safe.svg' %>
+    <div class="column is-6">
+     <h1 class="title f-40 th-700"><%= company_name %> is a maintained community</h1>
+    <h2 class="subtitle is-3 th-400">Persuasion Paper is a place to share your personal beliefs on topics, not a place for trolls and spam.
+    The Persuasion Paper team actively monitors content to keep the discovery experience enjoyable.</h2>
     </div>
 </div>
 </div>
@@ -68,7 +62,7 @@
 </div>
 </div>
 
-<div class="section hero is-fullheight is-hidden-desktop">
+<div class="section hero is-hidden-desktop  is-primary">
 <div class="container">
 <div class="columns">
     <div class="column is-6">
@@ -77,112 +71,45 @@
     None of your information will ever be shared with the public and we only ask for your email in effort to keep Persuasion Paper troll and spam free.</h2>
     </div>
     <div class="column">
-      <%= image_tag 'safe.svg' %>
-    </div>
-</div>
-</div>
-
-
-</div>
-</div>
-<!-----------------3rd part--------------------->
-<div class="section hero is-fullheight is-hidden-touch">
-<div class="container m-t-90">
-<div class="columns">
-    <div class="column is-6">
-     <h1 class="title f-40 th-700"><%= company_name %> is a maintained community</h1>
-    <h2 class="subtitle is-3 th-400">Persuasion Paper is a place to share your personal beliefs on topics, not a place for trolls and spam.
-    The Persuasion Paper team actively monitors content to keep the discovery experience enjoyable.</h2>
-    </div>
-    <div class="column">
-      <%= image_tag 'community.svg' %>
-    </div>
-</div>
-</div>
-
-
-</div>
-</div>
-
-<div class="section hero is-fullheight is-hidden-desktop">
-<div class="container">
-<div class="columns">
-    <div class="column is-6">
      <h1 class="title is-5 th-700"><%= company_name %> is a maintained community</h1>
     <h2 class="subtitle is-5 th-400">Persuasion Paper is a place to share your personal beliefs on topics, not a place for trolls and spam.
     The Persuasion Paper team actively monitors content to keep the discovery experience enjoyable.</h2>
     </div>
-    <div class="column">
-      <%= image_tag 'community.svg' %>
+</div>
+</div>
+
+
+</div>
+</div>
+
+<div class="section hero">
+<h3 class="title th-700 f-30">
+Recent Questions
+</h3>
+<div class="columns is-multiline">
+  <% @posts.each do |post|%>
+    <div class="column is-3">
+    <div class="card fade-in">
+      <div class="card-content">
+        <strong class="title th-700 f-20 m-b-20"><%=time_ago_in_words(post.created_at)%> ago</strong> <%= link_to 'Report', posts_report_path(post.id), method: :post, :confirm => "Are you sure?" %>
+        <br>
+        <p class="subtitle f-20"><%= post.body %></p>
+        <!--level--->
+        <nav class="level is-mobile m-b-0">
+          <!-- Right side -->
+          <div class="level-left">
+            <p class="level-item">
+            <%= link_to post do %>
+              Answer
+            <% end %>
+            </p>
+          </div>
+        </nav>
+        <div class="subtitle is-7"><%= pluralize(Reply.where(post_id: post.id).count, 'Answers')%> · <%= pluralize(View.where(post_id: post.id).count, 'Views')%></div>
+        <!----->
+      </div>
     </div>
-</div>
-</div>
-
-
-</div>
-</div>
-
-<!-- 
-<div class="section">
-<div class="container has-background-primary p-20 m-t-20">
-<h1 class="title th-700 f-30 has-text-white">How to use persuasion paper</h1> 
-<p class="subtitle has-text-white">Persuasion paper is meant to bring out unspoken conversations between each other in a safe environment. 
-These conversation topics can be absolutely anything (the more controversial the better). These can be topics that people would
-hate you for bringing up around the dinner table. Your name is not tied to anything and the posts are strictly about content. Everyones voice has an equal opportunity of being heard
-and posts are chosen at random to be shown to people. There are a few rules to keep in mind when posting: 
-<br><br>
-<strong class="f-25 has-text-white">People can report your post and it will be taken down perminently if it doesn't follow these rules. 
-If you have more than 3 posts that are taken down, you will be banned from using the application.</strong>
-<br>
-<p class="subtitle has-text-white m-t-10">
-1. A post should not be made with the intention to hurt someone or a group of people. <br>
-2. Everyone should be respectful of where a person is coming from and should always focus on the issue (solutions, alternatives, etc.), not the poster. <br>
-3. Posts should have thorough thought behind them to keep the paper feed full of good content. <br>
-</p>
-</p>
-</div>
-<div class="container m-t-30">
-<div class="columns is-fullhieght">
-    <div class="column is-6 f-20">
-    <h1 class="title th-700 f-30 m-b-20">Think and share it with the world</h1>
-    Create a new post to share with the world. Posts will be shown 
-    to people at random so that everyone has a chance to be heard.</div>
-    <div class="column"><%= image_tag 'new_post.png' %></div>
-</div>
-<hr>
-<div class="columns">
-    <div class="column is-3 f-20">
-    <h1 class="title th-700 f-30 m-b-20">Favorite to show understanding</h1>
-    Favorite a post so that the creator can see who understands their point-of-view</div>
-    <div class="column"><%= image_tag 'favorite_demo.png' %></div>
-</div>
-<hr>
-<div class="columns">
-    <div class="column is-3 f-20">
-    <h1 class="title th-700 f-30 m-b-20">Disagree? Show that you do</h1>
-    Reply to a post to add to someones point or disagree with their stand</div>
-    <div class="column"><%= image_tag 'reply_demo.png' %></div>
-</div>
-<div class="columns">
-    <div class="column is-3 f-20">Reply to a post to add to someones point or disagree with their stand</div>
-    <div class="column"><%= image_tag 'reply.png' %></div>
-</div>
-<hr>
-<div class="columns">
-    <div class="column is-3 f-20">
-    <h1 class="title th-700 f-30 m-b-20">Share a post with your network</h1>
-    Share a post with your followers on linkedin, facebook, twitter, tumblr, and/or reddit</div>
-    <div class="column"><%= image_tag 'share_demo.png' %></div>
-</div>
-<hr>
-<div class="columns">
-    <div class="column is-3 f-20">
-    <h1 class="title th-700 f-30 m-b-20">Keep the community safe and helpful</h1>
-    Report a post and it will be temporarily taken down until the persuasion paper team evaluates it.
     </div>
-    <div class="column"><%= image_tag 'report_demo.png' %></div>
+  <% end %>
 </div>
 </div>
-</div>
--->
-

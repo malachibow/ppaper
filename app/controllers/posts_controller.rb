@@ -22,14 +22,10 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    if user_signed_in? && !params[:search].blank? && params.has_key?(:search)
-      @post = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where.not(id: View.select("post_id").where(user_id: current_user.id), report: 'true').order("RANDOM()").first
-    if @post.blank?
-      @post = Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").where(report: 'false').order("RANDOM()").first
-    end
+    if params.has_key?(:search) && !params[:search].blank?
+     @pagy, @posts = pagy(Post.where('title ILIKE :search OR body ILIKE :search OR tags ILIKE :search', search: "%#{params[:search]}%").not_reported.order(created_at: :ASC))
     else
-      randomize
-      @post = @initial_post
+      @pagy, @posts = pagy(Post.not_reported.order(created_at: :ASC))
     end
   end
 
@@ -91,18 +87,6 @@ class PostsController < ApplicationController
   end
 
   private
-    def randomize
-        if user_signed_in?
-        @initial_post = Post.where.not(id: View.select("post_id").where(user_id: current_user.id), report: true).order("RANDOM()").first
-        end
-        if !@initial_post.blank?
-          @view = View.new(user_id: current_user.id,
-          post_id: @initial_post.id)
-          @view.save
-          else
-          @initial_post = Post.order("RANDOM()").first
-        end
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_post
