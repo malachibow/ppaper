@@ -26,15 +26,9 @@
           <!-- Right side -->
           <div class="level-left">
             <p class="level-item">
-                <% if user_signed_in? && !Favorite.exists?(post_id: post.id, user_id: current_user.id) %>
-                  <%= link_to favorite_path(post), method: :post, remote: true do %>
-                    <i class="material-icons">favorite_border</i>
-                  <% end %>
-                <% elsif user_signed_in? %>
-                  <%= link_to favorite_path(post), method: :post, remote: true do %>
-                    <i class="material-icons">favorite</i>
-                  <% end %>
-                <% end %>
+              <%= link_to favorite_path(post.id), method: :post, remote: :true do %>
+                <i class="material-icons favme <%if Favorite.exists?(user_id: current_user.id, post_id: post.id)%> active <%end%>">favorite</i>
+              <% end %>
             </p>
             <p class="level-item">
             <%= link_to post do %>
