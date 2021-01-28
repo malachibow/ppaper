@@ -37,7 +37,6 @@ class PostsController < ApplicationController
     #create favorite
     if Favorite.exists?(post_id: @post.id, user_id: current_user.id)
       @favorite.destroy
-      redirect_to post_path(@post.id), notice: "Post unfavorited"
     else
       @favorite = Favorite.new(user_id: current_user.id,
                                 post_id: @post.id)
@@ -47,9 +46,6 @@ class PostsController < ApplicationController
                                           post_id: @post.id,
                                           notification_type: '0')
         @notification.save
-        redirect_to post_path(@post.id), notice: "Post favorited :)"
-      else
-        redirect_to post_path(@post.id), alert: "Somthing went wrong"
       end
     end 
   end
